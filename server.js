@@ -81,16 +81,13 @@ wsServer.on('connection', (ws, req) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
       const nickname = users.findIndex((item) => item.name.toLowerCase() === request.message.toLowerCase());
-      if (request.message && nickname === -1) {
+      if (request.message !== '' && nickname === -1) {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
           {
             event: 'connect',
-            message: {
-              action: 'login',
-              name: ws.name,
-            }
+            message: userList,
           }
         ));
         users.push(ws);
