@@ -114,7 +114,7 @@ wsServer.on('connection', (ws, req) => {
           event: 'chat',
           message: {
             name: ws.name,
-            created: new Date().toLocaleString('ru');
+            created: new Date().toLocaleString('ru'),
             text: request.message,
           }
         });
