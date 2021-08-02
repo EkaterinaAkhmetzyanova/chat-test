@@ -80,9 +80,12 @@ wsServer.on('connection', (ws, req) => {
   ws.on('message', (msg) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
-      const nickname = users.findIndex((item) => item.name === ws.name);
+      const nickname = users.find((item) => item.name === ws.name);
       console.log(nickname);
-      if (request.message && nickname === -1) {
+      if (nickname) {
+        ws.close(1000, 'error');
+      }
+      if (request.message && !nickname) {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
