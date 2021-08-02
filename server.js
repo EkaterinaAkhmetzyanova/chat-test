@@ -81,9 +81,10 @@ wsServer.on('connection', (ws, req) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
       const nickname = users.findIndex((item) => item.name.toLowerCase() === request.message.toLowerCase());
-      if (nickname !== -1) {
-        ws.close(1000, 'Данный псевдоним уже занят');
-      } else {
+      // if (nickname !== -1) {
+      //   ws.close(1000, 'Данный псевдоним уже занят');
+      // } 
+      //else {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
@@ -103,7 +104,7 @@ wsServer.on('connection', (ws, req) => {
           });
           item.send(userMsg);
         });
-      }
+      //}
     }
     if (request.event === 'chat') {
       users.forEach((item) => {
@@ -137,9 +138,7 @@ ws.on('close', () => {
   }
 });
 
-ws.onerror = function(event) {
-  console.log(event);
-}
+
 });
 
 server.listen(port, () => console.log('Server started'));
