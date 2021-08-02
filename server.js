@@ -81,9 +81,9 @@ wsServer.on('connection', (ws, req) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
       const nickname = users.findIndex((item) => item.name.toLowerCase() === request.message.toLowerCase());
-      // if (nickname !== -1) {
-      //   ws.close(1000, 'Данный псевдоним уже занят');
-      // } 
+      if (nickname !== -1) {
+        ws.send(JSON.stringify({event: 'error', message: 'Данный псевдоним уже существует'}));
+      } 
       if (request.event && nickhame === -1) {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
