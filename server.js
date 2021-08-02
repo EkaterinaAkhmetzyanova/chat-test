@@ -81,7 +81,7 @@ wsServer.on('connection', (ws, req) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
       const nickname = users.findIndex((item) => item.name.toLowerCase() === request.message.toLowerCase());
-      if (!request.message && nickname !== -1) {
+      if (nickname !== -1) {
         ws.close(1000, 'Данный псевдоним уже занят');
       } else {
         ws.name = request.message;
