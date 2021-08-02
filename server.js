@@ -79,10 +79,9 @@ app.use(
 wsServer.on('connection', (ws, req) => {
   ws.on('message', (msg) => {
     const request = JSON.parse(msg);
-    ws.name = request.message;
     console.log(ws.name);
     if (request.event === 'login') {
-      const nickname = users.findIndex((item) => item.name.toLowerCase() === ws.name.toLowerCase());
+      const nickname = users.findIndex((item) => item.name.toLowerCase() === request.message.toLowerCase());
       console.log(nickname);
       if (nickname !== -1) {
         ws.close(1000, 'error');
@@ -119,6 +118,7 @@ wsServer.on('connection', (ws, req) => {
             text: request.message,
           }
         });
+        console.log(ws.name);
         item.send(userMsg);
       })
     }
