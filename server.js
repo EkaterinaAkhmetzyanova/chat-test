@@ -84,10 +84,9 @@ wsServer.on('connection', (ws, req) => {
     if (request.event === 'login') {
       const nickname = users.findIndex((item) => item.name.toLowerCase() === ws.name.toLowerCase());
       console.log(nickname);
-      if (nickname) {
+      if (nickname === -1) {
         ws.close(1000, 'error');
-      }
-      if (request.message && !nickname) {
+      } else {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
@@ -108,7 +107,8 @@ wsServer.on('connection', (ws, req) => {
           item.send(userMsg);
         });
       }
-    }
+      }
+      
     if (request.event === 'chat') {
       users.forEach((item) => {
         const userMsg = JSON.stringify({
