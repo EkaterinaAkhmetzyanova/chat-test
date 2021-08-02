@@ -80,11 +80,11 @@ wsServer.on('connection', (ws, req) => {
   ws.on('message', (msg) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
-      const nickname = users.findIndex((item) => item.name.toLowerCase() === request.message.toLowerCase());
-      if (nickname !== -1) {
-        ws.send(JSON.stringify({event: 'error', message: 'Данный псевдоним уже существует'}));
+      const nickname = users.find((item) => item.name.toLowerCase() === request.message.toLowerCase());
+      if (nickname) {
+        ws.send(JSON.stringify({event: 'error', message: 'error'}));
       } 
-      if (request.message && nickhame === -1) {
+      if (request.message && !nickhame) {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
