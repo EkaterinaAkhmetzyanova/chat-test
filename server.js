@@ -84,7 +84,7 @@ wsServer.on('connection', (ws, req) => {
       if (nickname !== -1) {
         ws.send(JSON.stringify({event: 'error', message: 'Данный псевдоним уже существует'}));
       } 
-      if (request.event && nickhame === -1) {
+      if (request.message && nickhame === -1) {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
