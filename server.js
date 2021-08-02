@@ -84,7 +84,7 @@ wsServer.on('connection', (ws, req) => {
       // if (nickname !== -1) {
       //   ws.close(1000, 'Данный псевдоним уже занят');
       // } 
-      //else {
+      if (request.event && nickhame === -1) {
         ws.name = request.message;
         const userList = users.map((item) => item.name);
         ws.send(JSON.stringify(
@@ -104,7 +104,7 @@ wsServer.on('connection', (ws, req) => {
           });
           item.send(userMsg);
         });
-      //}
+      }
     }
     if (request.event === 'chat') {
       users.forEach((item) => {
