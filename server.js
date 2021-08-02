@@ -137,9 +137,9 @@ ws.on('close', () => {
   }
 });
 
-ws.onerror('error', () => {
-  console.log(error.message);
-})
+ws.onerror = function(event) {
+  console.error(event);
+}
 });
 
 server.listen(port, () => console.log('Server started'));
