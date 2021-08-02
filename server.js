@@ -84,7 +84,7 @@ wsServer.on('connection', (ws, req) => {
     if (request.event === 'login') {
       const nickname = users.findIndex((item) => item.name.toLowerCase() === ws.name.toLowerCase());
       console.log(nickname);
-      if (nickname === -1) {
+      if (nickname !== -1) {
         ws.close(1000, 'error');
       } else {
         ws.name = request.message;
