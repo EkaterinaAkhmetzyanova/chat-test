@@ -136,6 +136,10 @@ ws.on('close', () => {
     })
   }
 });
+
+ws.onerror('error', () => {
+  console.log(error.message);
+})
 });
 
 server.listen(port, () => console.log('Server started'));
