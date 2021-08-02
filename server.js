@@ -138,7 +138,7 @@ ws.on('close', () => {
 });
 
 ws.onerror = function(event) {
-  console.error(event);
+  console.log(event);
 }
 });
 
