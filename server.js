@@ -80,7 +80,7 @@ wsServer.on('connection', (ws, req) => {
   ws.on('message', (msg) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
-      const nickname = users.find((item) => item.name === ws.name);
+      const nickname = users.find((item) => item.name === request.message);
       console.log(nickname);
       if (nickname) {
         ws.close(1000, 'error');
