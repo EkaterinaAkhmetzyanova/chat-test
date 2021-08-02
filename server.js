@@ -80,7 +80,7 @@ wsServer.on('connection', (ws, req) => {
   ws.on('message', (msg) => {
     const request = JSON.parse(msg);
     if (request.event === 'login') {
-      const nickname = users.findIndex((item) => item.name === request.message);
+      const nickname = users.findIndex((item) => item.name === ws.name);
       console.log(nickname);
       if (request.message && nickname === -1) {
         ws.name = request.message;
