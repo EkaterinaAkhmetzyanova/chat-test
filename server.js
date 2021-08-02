@@ -101,7 +101,9 @@ wsServer.on('connection', (ws, req) => {
           });
           item.send(userMsg);
         });
-      } 
+      } else {
+        ws.close(1000, 'Данный псевдоним уже занят');
+      }
     }
     if (request.event === 'chat') {
       users.forEach((item) => {
